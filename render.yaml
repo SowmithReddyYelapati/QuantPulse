@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: quantpulse-backend
+    env: node
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma db push && npm run start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: quantpulse-db
+          property: connectionString
+      - key: ML_SERVICE_URL
+        value: https://quantpulse-ml.onrender.com
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 5000
+
+  - type: web
+    name: quantpulse-ml
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+
+databases:
+  - name: quantpulse-db
+    databaseName: quantpulse
+    user: quantpulse_user
