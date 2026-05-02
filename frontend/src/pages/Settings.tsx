@@ -56,7 +56,7 @@ const Settings = () => {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  const toggle = (key: keyof typeof prefs) => setPrefs((p: typeof defaultPrefs) => ({ ...p, [key]: !(p[key]) }));
+  const toggle = (key: keyof typeof prefs) => setPrefs((p: any) => ({ ...p, [key]: !p[key] }));
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
