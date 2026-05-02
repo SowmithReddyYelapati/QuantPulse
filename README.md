@@ -1,50 +1,62 @@
-# QuantPulse: Stock & Market Analytics Dashboard
+<div align="center">
+  <h1>📈 QuantPulse</h1>
+  <p><b>Institutional-Grade Stock Market Analytics & Machine Learning Prediction Engine</b></p>
+  
+  [![Deploy Status](https://img.shields.io/badge/Render-Deployed-success?style=for-the-badge&logo=render)](https://render.com/)
+  [![Deploy Status](https://img.shields.io/badge/Vercel-Deployed-success?style=for-the-badge&logo=vercel)](https://vercel.com/)
+  [![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Node%20%7C%20Python-blue?style=for-the-badge)](#)
+</div>
 
-QuantPulse is a production-ready financial dashboard that provides real-time stock market data, interactive visualizations, and machine learning-based price predictions.
+---
 
-## 🚀 Features
-- **Real-time Data**: Live stock price updates and market trends.
-- **Advanced Visualization**: Interactive Area charts using Recharts with Technical Indicators (MA, RSI).
-- **ML Predictions**: Next-day price forecasting using Linear Regression (Python/FastAPI).
-- **User Watchlist**: Personalized stock tracking.
-- **Premium UI**: Modern dark-themed dashboard with smooth animations.
-- **JWT Authentication**: Secure login and signup.
+**QuantPulse** is a distributed, full-stack financial dashboard designed to bridge the gap between technical trading and artificial intelligence. Built with a robust microservice architecture, it provides real-time market data, interactive volume distributions, and machine-learning-driven price forecasts in a premium "Elite Dark" user interface.
 
-## 🛠️ Tech Stack
-- **Frontend**: React.js, TypeScript, Recharts, Framer Motion, Lucide React.
-- **Backend**: Node.js (Express), TypeScript, Prisma ORM, SQLite.
-- **ML Service**: Python, FastAPI, Scikit-learn, YFinance.
+## ✨ Core Features
+* **AI Prediction Engine**: Next-day closing price forecasting powered by a Python/FastAPI microservice utilizing `scikit-learn`.
+* **Institutional UI/UX**: Custom-built, utility-first CSS design system featuring glassmorphism, stagger animations, and ambient radial gradients.
+* **Real-time Analytics**: Interactive area charts with technical indicators (RSI, MACD, Bollinger Bands) using Recharts.
+* **Distributed Architecture**: Clean separation of concerns between the React frontend, Node.js REST API, and Python ML backend.
+* **Secure Authentication**: JWT-based session management and encrypted password storage via Prisma & PostgreSQL.
 
-## 📦 Project Structure
-- `/frontend`: React client.
-- `/backend`: Express API server.
-- `/ml-service`: Python prediction engine.
+## 🛠️ Technology Stack
+* **Frontend**: React 18, TypeScript, Vite, Framer Motion (Animations), Lucide (Icons)
+* **Backend**: Node.js, Express.js, Prisma ORM, PostgreSQL, Redis (Caching)
+* **ML Service**: Python 3.10, FastAPI, Scikit-Learn, Pandas, NumPy, yFinance
+* **Infrastructure**: Render (Backend/ML/DB via `render.yaml`), Vercel (Frontend)
 
-## 🛠️ Setup Instructions
+## 📦 System Architecture
+The platform is deployed using a decoupled microservices approach:
+1. `quantpulse-ui` (Vercel) → Client-side SPA
+2. `quantpulse-backend` (Render) → Express/Node.js API Gateway & Auth Service
+3. `quantpulse-ml` (Render) → Python/FastAPI Machine Learning Inference Engine
+4. `quantpulse-db` (Render) → Managed PostgreSQL Database
 
-### 1. ML Service
+## 🚀 Local Development Setup
+
+### 1. ML Service (Port 8001)
 ```bash
 cd ml-service
 python -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt (fastapi, uvicorn, pandas, numpy, scikit-learn, yfinance)
+.\venv\Scripts\activate  # On Mac/Linux: source venv/bin/activate
+pip install -r requirements.txt
 python main.py
 ```
 
-### 2. Backend
+### 2. Node API (Port 5000)
 ```bash
 cd backend
 npm install
+npx prisma generate
 npx prisma db push
 npm run dev
 ```
 
-### 3. Frontend
+### 3. Frontend (Port 5173)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## 📊 ML Model Details
-The prediction engine uses a **Linear Regression** model trained on the last 30 days of closing prices. It identifies trends and projects the next likely closing value, overlaying this on the dashboard charts for quick decision-making.
+## 🧠 ML Model Overview
+The inference engine utilizes a continuous-training Linear Regression model. It fetches the latest 30-day historical tick data via `yfinance`, calculates momentum vectors (Fast/Slow MAs), and projects short-term price movements overlaid directly onto the frontend React charts.
