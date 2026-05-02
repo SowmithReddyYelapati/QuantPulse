@@ -2,6 +2,7 @@ services:
   - type: web
     name: quantpulse-backend
     env: node
+    plan: free
     buildCommand: npm install && npx prisma generate && npm run build
     startCommand: npx prisma db push && npm run start
     envVars:
@@ -19,6 +20,7 @@ services:
   - type: web
     name: quantpulse-ml
     env: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
@@ -29,3 +31,4 @@ databases:
   - name: quantpulse-db
     databaseName: quantpulse
     user: quantpulse_user
+    plan: free
