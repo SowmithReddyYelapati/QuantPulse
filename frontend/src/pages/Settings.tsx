@@ -56,7 +56,7 @@ const Settings = () => {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  const toggle = (key: keyof typeof prefs) => setPrefs(p => ({ ...p, [key]: !(p[key]) }));
+  const toggle = (key: keyof typeof prefs) => setPrefs((p: typeof defaultPrefs) => ({ ...p, [key]: !(p[key]) }));
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +74,7 @@ const Settings = () => {
         <div className="settings-field">
           <label className="settings-label">Data Refresh Rate</label>
           <select className="settings-select" value={prefs.dataRefreshRate}
-            onChange={e => setPrefs(p => ({ ...p, dataRefreshRate: e.target.value }))}>
+            onChange={e => setPrefs((p: typeof defaultPrefs) => ({ ...p, dataRefreshRate: e.target.value }))}>
             <option value="15s">Every 15 Seconds (High CPU)</option>
             <option value="30s">Every 30 Seconds (Recommended)</option>
             <option value="1m">Every 1 Minute</option>
@@ -84,7 +84,7 @@ const Settings = () => {
         <div className="settings-field">
           <label className="settings-label">AI Risk Tolerance</label>
           <select className="settings-select" value={prefs.riskTolerance}
-            onChange={e => setPrefs(p => ({ ...p, riskTolerance: e.target.value }))}>
+            onChange={e => setPrefs((p: typeof defaultPrefs) => ({ ...p, riskTolerance: e.target.value }))}>
             <option value="low">Conservative (Low Risk)</option>
             <option value="medium">Balanced (Medium Risk)</option>
             <option value="high">Aggressive (High Risk)</option>
@@ -99,12 +99,12 @@ const Settings = () => {
         <div className="settings-field">
           <label className="settings-label">Full Name</label>
           <input className="settings-input" value={prefs.name}
-            onChange={e => setPrefs(p => ({ ...p, name: e.target.value }))} placeholder="Your name" />
+            onChange={e => setPrefs((p: typeof defaultPrefs) => ({ ...p, name: e.target.value }))} placeholder="Your name" />
         </div>
         <div className="settings-field">
           <label className="settings-label">Email Address</label>
           <input type="email" className="settings-input" value={prefs.email}
-            onChange={e => setPrefs(p => ({ ...p, email: e.target.value }))} placeholder="your@email.com" />
+            onChange={e => setPrefs((p: typeof defaultPrefs) => ({ ...p, email: e.target.value }))} placeholder="your@email.com" />
         </div>
         <p className="settings-hint">Changes are saved to local storage and reflected on your Profile page.</p>
       </div>
@@ -140,7 +140,7 @@ const Settings = () => {
         <div className="settings-field">
           <label className="settings-label">Session Timeout</label>
           <select className="settings-select" value={prefs.sessionTimeout}
-            onChange={e => setPrefs(p => ({ ...p, sessionTimeout: e.target.value }))}>
+            onChange={e => setPrefs((p: typeof defaultPrefs) => ({ ...p, sessionTimeout: e.target.value }))}>
             <option value="15m">15 Minutes</option>
             <option value="30m">30 Minutes</option>
             <option value="1h">1 Hour</option>
@@ -170,7 +170,7 @@ const Settings = () => {
         <div className="settings-field">
           <label className="settings-label">Billing Cycle</label>
           <select className="settings-select" value={prefs.billingCycle}
-            onChange={e => setPrefs(p => ({ ...p, billingCycle: e.target.value }))}>
+            onChange={e => setPrefs((p: typeof defaultPrefs) => ({ ...p, billingCycle: e.target.value }))}>
             <option value="monthly">Monthly — $29/mo</option>
             <option value="annual">Annual — $199/yr (save 43%)</option>
           </select>
